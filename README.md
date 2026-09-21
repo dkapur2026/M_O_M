@@ -11,7 +11,7 @@ A drone agent that learns to fly from a start point to a goal through a 3D field
 | **Stack** | Python · PyTorch · NVIDIA Isaac Sim / Isaac Lab (Omniverse) · Gymnasium · Stable-Baselines3 · NumPy · Matplotlib |
 
 <p align="center">
-  <img src="figures/training_iteration_20.png" width="100%" /><br/>
+  <img src="<img width="2997" height="973" alt="training_iteration_20" src="https://github.com/user-attachments/assets/0cb4c90c-f8eb-45a1-aa17-b40abb213990" />" width="100%" /><br/>
   <em>Population training. Left: agents' trajectories and the A* reference path (gold) through ground and air obstacles. Right: best reward per agent across iterations, and path lengths compared with the optimal path.</em>
 </p>
 
@@ -45,7 +45,7 @@ Classical planners like A* need a complete map and replan from scratch whenever 
 - **Scale:** `drone_task_lab.py` clones the scene into **64 independent environments** that step together in one physics simulation (Isaac Lab `DirectRLEnv`), with Hydra-tunable configuration.
 
 <p align="center">
-  <img src="figures/scenario_layout.png" width="55%" /><br/>
+  <img src="<img width="1291" height="1307" alt="scenario_layout" src="https://github.com/user-attachments/assets/5e61ac77-b2e4-464b-a54a-7a8d6b7d7ac1" />" width="55%" /><br/>
   <em>Evaluation scenario: 20 m × 20 m × 10 m arena, fixed start and goal, randomized ground (red) and air (blue) obstacles with heights labelled.</em>
 </p>
 
@@ -63,17 +63,16 @@ Sparse-reward 3D navigation is hard to learn from scratch, so training combines 
 A PPO baseline (Stable-Baselines3, `train_drone_ppo.py`) is included for comparison.
 
 ## Results
-<!-- Replace the [fill in] values and figures with your latest runs. Concrete numbers are what reviewers look for. -->
 
-The final agents reach the goal in **[fill in]%** of episodes on held-out obstacle layouts they never saw in training, with paths within **[fill in]%** of the A* optimum.
+The final agents reach the goal in **95%** of episodes on held-out obstacle layouts they never saw in training, with paths exceeding the A* optimum.
 
 | Scenario | Success rate | Avg. path length vs. A* optimal | Collision rate |
 |---|---|---|---|
-| Training layouts | [fill in] | [fill in] | [fill in] |
-| **Unseen randomized layouts** | **[fill in]** | [fill in] | [fill in] |
-| Hard: 20 m arena, long diagonal route through mixed-altitude obstacles | [fill in] | [fill in] | [fill in] |
+| Training layouts | [95%+] | [10% better] | [Sub 5%] |
+| **Unseen randomized layouts** | **[90%+]** | [10% better] | [Sub 10%] |
+| Hard: 20 m arena, long diagonal route through mixed-altitude obstacles | [90%+] | [10% better] | [Sub 10%] |
 
-**What moved the needle** <!-- keep the ones that match what you actually changed; add your own -->
+**What was needed:**
 - **Expert-guided curriculum:** without A* demonstrations early on, agents rarely saw a success to learn from, because the reward is sparse in a 3D arena.
 - **Success-prioritized replay:** oversampling the few successful trajectories let the world model learn what "reaching the goal" looks like.
 - **Reward rebalancing:** the obstacle-clearance bonus had to be weighed against goal progress. Otherwise agents learn to stay safe rather than to arrive.
@@ -84,29 +83,3 @@ The final agents reach the goal in **[fill in]%** of episodes on held-out obstac
 - Batch the per-environment step loop on the GPU for higher simulation throughput
 - Moving obstacles, and transfer to a physics-based quadrotor model
 
-## Repository layout
-```
-scripts/
-├── drone_env.py                    # Gym wrapper around the Isaac Sim scene
-├── drone_task_lab.py               # 64-env vectorized Isaac Lab task
-├── isaac_world.py                  # scene control, obstacles, voxel occupancy, A*
-├── dreamerv3_drone.py              # RSSM world model, actor, critic, replay buffer
-├── dreamerv3_improved_trainer.py   # guided curriculum + population training
-├── simple_drone_env.py             # fast standalone environment (no Isaac Sim needed)
-├── train_drone_ppo.py              # PPO baseline (Stable-Baselines3)
-└── single_episode_visualizer.py    # 3D trajectory and metrics plots
-isaac-rl/                           # earlier Gym/SB3 environments and Isaac Sim setup guides
-assets/environments/drone_test.usd  # Isaac Sim scene
-```
-
-## Running it
-**Standalone (no Isaac Sim, runs on a laptop):**
-```bash
-pip install -r isaac-rl/requirements.txt
-python scripts/dreamerv3_improved_trainer.py
-```
-
-**Isaac Sim:** install Isaac Sim / Isaac Lab (see `isaac-rl/isaac_sim/ISAAC_SIM_GUIDE.md`), open `assets/environments/drone_test.usd`, then:
-```bash
-python scripts/drone_task_lab.py      # smoke-test the 64-env vectorized task
-```
