@@ -46,7 +46,7 @@ Classical planners like A* need a complete map and replan from scratch whenever 
 - **Scale:** `drone_task_lab.py` clones the scene into **64 independent environments** that step together in one physics simulation (Isaac Lab `DirectRLEnv`), with Hydra-tunable configuration.
 
 <p align="center">
-  <img src="<img width="1291" height="1307" alt="scenario_layout" src="https://github.com/user-attachments/assets/5e61ac77-b2e4-464b-a54a-7a8d6b7d7ac1" />" width="55%" /><br/>
+  <img src="<img width="1291" height="1307" alt="scenario_layout" src="scenario_layout.png" />" width="55%" /><br/>
   <em>Evaluation scenario: 20 m × 20 m × 10 m arena, fixed start and goal, randomized ground (red) and air (blue) obstacles with heights labelled.</em>
 </p>
 
