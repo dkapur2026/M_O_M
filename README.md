@@ -1,7 +1,7 @@
 # M.O.M. — Mind Over Maneuver
 ### Model-based reinforcement learning for autonomous drone navigation in NVIDIA Isaac Sim
 
-A drone agent that learns to fly from a start point to a goal through a 3D field of ground and airborne obstacles, then generalizes to obstacle layouts it hasn't seen. The agent uses a **DreamerV3-style world model**, written from scratch in PyTorch: it learns a model of the environment, then trains its policy on *imagined* rollouts inside that model instead of only on real experience. The environment runs in **NVIDIA Isaac Sim / Isaac Lab** (the Omniverse robotics simulator), with a lightweight standalone version for fast iteration.
+A drone agent that learns to fly from a start point to a goal through a 3D field of ground and airborne obstacles, then generalizes to hostile layouts it hasn't seen. The agent uses a **DreamerV3-style world model**, written from scratch in PyTorch: it learns a model of the environment, then trains its policy on *imagined* rollouts inside that model instead of only on real experience. The environment runs in **NVIDIA Isaac Sim / Isaac Lab** (the Omniverse robotics simulator), with a lightweight standalone version for fast iteration.
 
 | | |
 |---|---|
