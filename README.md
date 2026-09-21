@@ -11,7 +11,7 @@ A drone agent that learns to fly from a start point to a goal through a 3D field
 | **Stack** | Python · PyTorch · NVIDIA Isaac Sim / Isaac Lab (Omniverse) · Gymnasium · Stable-Baselines3 · NumPy · Matplotlib |
 
 <p align="center">
-  <img src="<img width="2997" height="973" alt="training_iteration_20" src="https://github.com/user-attachments/assets/0cb4c90c-f8eb-45a1-aa17-b40abb213990" />" width="100%" /><br/>
+  <img src="<img width="2997" height="973" alt="training_iteration_20" src="training_iteration_20.png" />" width="100%" /><br/>
   <em>Population training. Left: agents' trajectories and the A* reference path (gold) through ground and air obstacles. Right: best reward per agent across iterations, and path lengths compared with the optimal path.</em>
 </p>
 
